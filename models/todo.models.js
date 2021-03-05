@@ -12,10 +12,12 @@ const todoSchema = new mongoose.Schema (
       maxlength: 500,
       required: true
     },
-    todos: {
-      type: [String],
-      required: true
-    }
+    todos: [
+      {
+        item: { type : String },
+        done: { type : Boolean },
+      }
+    ],
   },
   {
     timestamps: true
