@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, Typography, Container } from '@material-ui/core';
-// import ElementTask from './ElementTask'
+import ElementTask from './ElementTask'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -35,13 +35,14 @@ function CardTask({ todo, index }) {
 
   const uid = useContext(UidContext);
 
+  console.log(todo.todos);
 
   return (
-    
+
     <>
 
-     <Box>
-      <Container>
+      <Box>
+        <Container>
           <Card className={classes.cardCustom}>
             <Typography align="center" variant="h5" p="2">{todo.list}</Typography>
             <Tooltip title="Supprimer">
@@ -51,16 +52,16 @@ function CardTask({ todo, index }) {
             </Tooltip>
             <Container>
               <Box>
-                {/* {task.data.map((elem) => {
-                            return <ElementTask elem={elem}/>
-                          })} */}
+                {todo.todos.map((elem) => {
+                  return <ElementTask elem={elem} />
+                })}
               </Box>
             </Container>
           </Card>
-      </Container>
-    </Box>
+        </Container>
+      </Box>
 
-     
+
     </>
 
 

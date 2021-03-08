@@ -41,15 +41,15 @@ export const addTodo = (data) => {
 };
 
 
-export const updateTodo = (postId, message) => {
+export const updateTodo = (postId, item, done) => {
   return (dispatch) => {
       return axios({
           method: "put",
           url: `${process.env.REACT_APP_API_URL}api/todos/${postId}`,
-          data: { message }
+          data: { item, done }
       })
           .then((res) => {
-              dispatch({ type: UPDATE_TODO, payload: { message, postId } })
+              dispatch({ type: UPDATE_TODO, payload: { item, done, postId } })
           })
           .catch((err) => console.log(err))
   }
