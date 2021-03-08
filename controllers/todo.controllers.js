@@ -28,6 +28,7 @@ module.exports.updateTodo = (req, res) => {
     return res.status(400).send("ID unknown : " + req.params.id);
 
   const updatedRecord = {
+    userId: req.body.userId,
     list: req.body.list,
     todos: req.body.todos
   };
