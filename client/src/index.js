@@ -11,6 +11,7 @@ import { getUser } from "./actions/user.actions";
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
 
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
@@ -20,7 +21,7 @@ store.dispatch(getUser());
 
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} >
     <App />
   </Provider>,
   document.getElementById("root")

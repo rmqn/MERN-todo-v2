@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react'
+import ElementTask from './ElementTask'
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, getTodo } from '../../actions/todo.actions';
+import { capitalizeFirstLetter, dateParser } from '../Utils';
+// MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, Typography, Container } from '@material-ui/core';
-import ElementTask from './ElementTask'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, getTodo } from '../../actions/todo.actions';
 
 const useStyles = makeStyles(() => ({
   cancelIconCustom: {
@@ -22,11 +24,12 @@ const useStyles = makeStyles(() => ({
     borderRadius: "15px",
     position: "relative",
     padding: ".5em",
-    marginBottom: "1.5rem"
+    marginBottom: "1.5rem",
+    paddingBottom: '3em'
   }
 }));
 
-function CardTask({ todo, index }) {
+function CardTask({ todo }) {
   const classes = useStyles()
 
   const dispatch = useDispatch();
@@ -35,14 +38,19 @@ function CardTask({ todo, index }) {
     dispatch(deleteTodo(todo._id));
     dispatch(getTodo())
   }
+
+  console.log(todo.createdAt);
+
   return (
 
     <>
 
-      <Box>
+      <Box >
         <Container>
           <Card className={classes.cardCustom}>
-            <Typography align="center" variant="h5" p="2">{todo.list}</Typography>
+            <Box  p={2}>
+              <Typography align="center" variant="h5">{capitalizeFirstLetter(todo.list)}</Typography>
+            </Box>
             <Tooltip title="Supprimer">
               <IconButton 
               className={classes.cancelIconCustom} 
@@ -62,6 +70,11 @@ function CardTask({ todo, index }) {
               </Box>
             </Container>
           </Card>
+        </Container>
+      </Box>
+      <Box mt={-2} mb={2}>
+        <Container>
+          <Typography style={{color: "#FFFFFF"}}>Créer le {dateParser(todo.createdAt)}</Typography>
         </Container>
       </Box>
 

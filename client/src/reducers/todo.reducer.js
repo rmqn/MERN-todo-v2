@@ -8,15 +8,15 @@ export default function todoReducer(state = initialState, action) {
       return action.payload;
     case ADD_TODO:
       return action.payload;
-    // case UPDATE_TODO:
-    //   return state.map((post) => {
-    //     if (post._id === action.payload.postId) {
-    //       return {
-    //         ...post,
-    //         message: action.payload.message
-    //       }
-    //     } else return post;
-    //   });
+    case UPDATE_TODO:
+      return state.map((post) => {
+        if (post._id === action.payload.postId) {
+          return {
+            ...post,
+            done: action.payload.done
+          }
+        } else return post;
+      });
       case DELETE_TODO:
         return state.map((post) => {
           if (post._id === action.payload.postId) {

@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import bg from '../src/assets/img/background.webp';
+
 import Routes from "./components/Routes";
 import { UidContext } from "./components/AppContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getUser } from "./actions/user.actions";
 
-const useStyles = makeStyles(() => ({
-  main: {
-    backgroundImage: `url(${bg})`,
-    backgroundSize: 'cover',
-    height: "100vh",
-    width:"100%",
-    
-    zIndex:"-1"
-  },
-}));
+
 
 const App = () => {
 
-  const classes = useStyles()
 
   const [uid, setUid] = useState(null);
   const dispatch = useDispatch();

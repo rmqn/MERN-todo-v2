@@ -7,9 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Logout from '../Log/Logout';
 
 const useStyles = makeStyles(() => ({
-    fontFamily:{
-        fontFamily: "Noto Sans",
-    },
+
     sizeIcon: {
         fontSize: "60px",
     },

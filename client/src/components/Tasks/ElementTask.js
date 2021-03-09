@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { Box, Checkbox, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { updateTodo } from '../../actions/todo.actions';
+import { capitalizeFirstLetter } from '../Utils';
+//MUI
+import { Box, Checkbox, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
     taskDone: {
@@ -20,17 +22,11 @@ export default function ElementTask({elem, todo}) {
     const dispatch = useDispatch();
 
 
-
-
     const handleChange = () => {
         setChecked(!checked);
         dispatch(updateTodo(todo, elem._id, !checked));
-        console.log('SEND');
-        console.log(elem._id);
     };
-    console.log(elem._id);
-    console.log(todo);
-    console.log(checked)
+
 
     return (
         <Box display="flex" alignItems="center">
@@ -40,7 +36,7 @@ export default function ElementTask({elem, todo}) {
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             <Typography variant="h6" className={checked === true ? classes.taskDone : ''} onClick={handleChange}>
-                {elem.item}
+                {capitalizeFirstLetter(elem.item)}
             </Typography> 
         </Box>
     )
