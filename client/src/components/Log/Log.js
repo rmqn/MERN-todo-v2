@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import SignInSide from './SignIn';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
@@ -20,14 +21,16 @@ function Log( props ) {
 
     return (
 
-            <div className="login-container">
-                <ul>
-                    <li onClick={handleModals} id="register" className={signUpModal ? "active-btn" : null}>S'inscrire</li>
-                    <li onClick={handleModals} id="login" className={signInModal ? "active-btn" : null}>Se connecter</li>
-                </ul>
+            // <div className="login-container">
+            //     <ul>
+            //         <li onClick={handleModals} id="register" className={signUpModal ? "active-btn" : null}>S'inscrire</li>
+            //         <li onClick={handleModals} id="login" className={signInModal ? "active-btn" : null}>Se connecter</li>
+            //     </ul>
+            <>
                 {signUpModal && <SignUpForm />}
-                {signInModal && <SignInForm />}
-            </div>
+                {signInModal && <SignInSide />}
+                </>
+            // </div>
 
     )
 }

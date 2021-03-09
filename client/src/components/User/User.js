@@ -21,7 +21,6 @@ export default function User() {
 
     const userData = useSelector((state) => state.userReducer);
 
-    console.log(userData);
 
     return (
         <Box display="flex" alignItems="center" justifyContent="flex-end" p={5}>

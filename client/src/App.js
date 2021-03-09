@@ -43,7 +43,7 @@ const App = () => {
   }, [uid, dispatch]);
 
   return (
-    <div className={classes.main}>
+    <div>
       <UidContext.Provider value={uid}>
         <Routes />
       </UidContext.Provider>

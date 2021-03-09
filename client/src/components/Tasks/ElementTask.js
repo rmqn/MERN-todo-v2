@@ -19,13 +19,13 @@ export default function ElementTask({elem}) {
         setChecked(!checked);
     };
 
-    console.log(checked);
+
 
     return (
         <Box display="flex" alignItems="center">
             <Checkbox
                 checked={checked}
-                onChange={handleChange}
+                onClick={handleChange}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             <Typography variant="h6" className={checked === true ? classes.taskDone : ''} onClick={handleChange}>

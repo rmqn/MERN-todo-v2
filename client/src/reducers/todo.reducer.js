@@ -1,10 +1,12 @@
-import { DELETE_TODO, GET_TODO, GET_ALL_TODO, UPDATE_TODO } from "../actions/todo.actions";
+import { DELETE_TODO, GET_TODO, GET_ALL_TODO, UPDATE_TODO, ADD_TODO } from "../actions/todo.actions";
 
 const initialState = {};
 
 export default function todoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TODO:
+      return action.payload;
+    case ADD_TODO:
       return action.payload;
     case UPDATE_TODO:
       return state.map((post) => {

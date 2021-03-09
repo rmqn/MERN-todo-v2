@@ -35,7 +35,6 @@ function CardTask({ todo, index }) {
 
   const uid = useContext(UidContext);
 
-  console.log(todo.todos);
 
   return (
 
@@ -52,9 +51,8 @@ function CardTask({ todo, index }) {
             </Tooltip>
             <Container>
               <Box>
-                {todo.todos.map((elem) => {
-                  return <ElementTask elem={elem} />
-                })}
+                {todo.todos.map((elem) => <ElementTask elem={elem} key={elem._id} /> )}
+                
               </Box>
             </Container>
           </Card>

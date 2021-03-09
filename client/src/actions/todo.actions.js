@@ -13,12 +13,12 @@ export const GET_POST_ERRORS = "GET_POST_ERRORS";
  * 
  * @posts
  */
- export const getTodo = (num) => {
+ export const getTodo = () => {
   return (dispatch) => {
       return axios
           .get(`${process.env.REACT_APP_API_URL}api/todos/`)
           .then((res) => {
-              const array = res.data.slice(0, num)
+              const array = res.data
               dispatch({ type: GET_TODO, payload: array })
              
           })

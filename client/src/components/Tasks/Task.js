@@ -48,7 +48,6 @@ function Task() {
     }
   }
   
-  console.log(todos.userId)
 
   return (
     <div>
@@ -57,7 +56,6 @@ function Task() {
         todos.map((todo, index) => {
           if(uid === todo.userId) {
             return <CardTask todo={todo} key={index} />
-          
           }
         })) : (
             <Card className={classes.cardCustom}>
