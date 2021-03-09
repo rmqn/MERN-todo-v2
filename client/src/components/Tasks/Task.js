@@ -39,7 +39,7 @@ function Task() {
       setLoadPost(false)
     }
 
-  }, [loadPost, dispatch])
+  }, [loadPost, todos, dispatch])
 
   const checkUserId = () => {
     for(let i = 0; i < todos.length; i++) {

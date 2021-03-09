@@ -34,26 +34,26 @@ export const addTodo = (data) => {
               if (res.data.errors) {
                   dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
               } else {
-                  dispatch({ type: GET_POST_ERRORS, payload: "" });
+                  dispatch({ type: ADD_TODO, payload: res.data });
               }
           });
   };
 };
 
 
-export const updateTodo = (postId, item, done) => {
+export const updateTodo = (postId, todoId, done) => {
   return (dispatch) => {
-      return axios({
-          method: "put",
-          url: `${process.env.REACT_APP_API_URL}api/todos/${postId}`,
-          data: { item, done }
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/todos/edit-todo-post/${postId}`,
+      data: { todoId, done },
+    })
+      .then((res) => {
+        dispatch({ type: UPDATE_TODO, payload: { postId, todoId, done } });
       })
-          .then((res) => {
-              dispatch({ type: UPDATE_TODO, payload: { item, done, postId } })
-          })
-          .catch((err) => console.log(err))
-  }
-}
+      .catch((err) => console.log(err));
+  };
+};
 
 export const deleteTodo = (postId) => {
   return (dispatch) => {

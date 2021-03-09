@@ -6,7 +6,7 @@ function Login() {
 
   const uid = useContext(UidContext);
 
-  console.log(uid);
+  // console.log(uid);
 
   return (
     <div>

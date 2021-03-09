@@ -5,9 +5,9 @@ import ElementTask from './ElementTask'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { useSelector } from 'react-redux';
-import { UidContext } from '../AppContext';
 
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, getTodo } from '../../actions/todo.actions';
 
 const useStyles = makeStyles(() => ({
   cancelIconCustom: {
@@ -27,15 +27,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 function CardTask({ todo, index }) {
-
   const classes = useStyles()
 
-  const todos = useSelector((state) => state.todoReducer);
-  const todosId = todo.userId;
+  const dispatch = useDispatch();
 
-  const uid = useContext(UidContext);
-
-
+  const deleteQuote = () => {
+    dispatch(deleteTodo(todo._id));
+    dispatch(getTodo())
+  }
   return (
 
     <>
@@ -45,14 +44,21 @@ function CardTask({ todo, index }) {
           <Card className={classes.cardCustom}>
             <Typography align="center" variant="h5" p="2">{todo.list}</Typography>
             <Tooltip title="Supprimer">
-              <IconButton className={classes.cancelIconCustom} aria-label="Supprimer">
+              <IconButton 
+              className={classes.cancelIconCustom} 
+              aria-label="Supprimer" 
+              onClick={() => {
+                if (window.confirm("Voulez-vous supprimer cette liste ?")) {
+                  deleteQuote();
+                }
+              }}
+              >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
             <Container>
               <Box>
-                {todo.todos.map((elem) => <ElementTask elem={elem} key={elem._id} /> )}
-                
+                {todo.todos.map((elem) => <ElementTask elem={elem} todo={todo._id} key={elem._id} />)}
               </Box>
             </Container>
           </Card>

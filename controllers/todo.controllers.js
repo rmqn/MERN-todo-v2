@@ -53,3 +53,55 @@ module.exports.deleteTodo = (req, res) => {
     else console.log("Delete error : " + err);
   });
 };
+
+module.exports.todoPost = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return TodoModels.findByIdAndUpdate(
+      req.params.id, {
+      $push: {
+        todos: {
+          item: req.body.item,
+          done: req.body.done
+        }
+      }
+    },
+      { new: true },
+      (err, docs) => {
+        if (!err) return res.send(docs)
+        else return res.status(400).send(err)
+      }
+    );
+  } catch (err) {
+    return res.status(400).send(err)
+  }
+};
+
+
+
+module.exports.editTodoBool = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return TodoModels.findById(
+      req.params.id,
+      (err, docs) => {
+        const theTodo = docs.todos.find((todo) =>
+          todo._id.equals(req.body.todoId)
+        );
+
+        if (!theTodo) return res.status(404).send("Todo not found");
+        theTodo.done = req.body.done;
+
+        return docs.save((err) => {
+          if (!err) return res.status(200).send(docs);
+          return res.status(500).send(err);
+        });
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
