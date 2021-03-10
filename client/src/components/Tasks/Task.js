@@ -42,26 +42,30 @@ function Task() {
   }, [loadPost, todos, dispatch])
 
   const checkUserId = () => {
-    for(let i = 0; i < todos.length; i++) {
+    for (let i = 0; i < todos.length; i++) {
       let userID = todos[i].userId;
-      if(userID === uid) return true
+      if (userID === uid) return true
     }
   }
-  
+
 
   return (
     <div>
 
       {!isEmpty(todos) && checkUserId() ? (
         todos.map((todo, index) => {
-          if(uid === todo.userId) {
+          if (uid === todo.userId) {
             return <CardTask todo={todo} key={index} />
           }
         })) : (
+        <Box>
+          <Container>
             <Card className={classes.cardCustom}>
               <Typography align="center" variant="h5" p="2">Aucune Tâche encore créer</Typography>
             </Card>
-          )}
+          </Container>
+        </Box>
+      )}
 
     </div>
   )

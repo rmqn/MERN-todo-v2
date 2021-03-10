@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
   cardCustom: {
     background: "linear-gradient(101.18deg, rgba(255, 255, 255, 0.36) 19.31%, rgba(255, 255, 255, 0.27) 90.35%)",
-    backdropFilter: "blur(50px)",
+    // backdropFilter: "blur(50px)",
     borderRadius: "15px",
     position: "relative",
     padding: ".5em",
@@ -38,15 +38,13 @@ function CardTask({ todo }) {
     dispatch(deleteTodo(todo._id));
     dispatch(getTodo())
   }
-
-  console.log(todo.createdAt);
-
+  
   return (
 
     <>
 
       <Box >
-        <Container>
+        <Container className="card-appear">
           <Card className={classes.cardCustom}>
             <Box  p={2}>
               <Typography align="center" variant="h5">{capitalizeFirstLetter(todo.list)}</Typography>

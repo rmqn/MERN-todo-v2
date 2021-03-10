@@ -1,0 +1,25 @@
+#closeBtn {
+  animation: rotate .2s ease-in-out;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.card-appear {
+  animation: scaleDown .5s ease-out;
+}
+
+@keyframes scaleDown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -24,12 +24,10 @@ export const dateParser = (num) => {
 
   let timestamp = Date.parse(num);
 
-  let date = new Date(timestamp).toLocaleDateString("fr-FR", options).replace(',', ' à').replace(':', 'h');
-  
-  // date.toString()
-  // date.replace(' ', 'àdsds');
-
-  console.log(date);
+  let date = new Date(timestamp)
+  .toLocaleDateString("fr-FR", options)
+  .replace(',', ' à')
+  .replace(':', 'h');
 
   return date.toString();
 };

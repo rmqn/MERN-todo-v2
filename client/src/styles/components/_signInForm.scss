@@ -14,3 +14,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.active-btn {
+  background-color: $blue;
+  border-radius: 15px;
+  padding: .5em;
+  color: #fff!important;
+}

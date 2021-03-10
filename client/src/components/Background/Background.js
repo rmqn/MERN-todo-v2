@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme) => ({
     // backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundImage: `url(${bg})`,
     backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backdropFilter: "blur(50px)",
     position: 'fixed',
     width: '100%',
     height: '100vh',
