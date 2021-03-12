@@ -1,5 +1,6 @@
 const TodoModels = require('../models/todo.models');
 const ObjectID = require("mongoose").Types.ObjectId;
+const { uploadErrors } = require("../utils/errors.utils");
 
 module.exports.readTodo = (req, res) => {
   TodoModels.find((err, docs) => {
@@ -9,6 +10,17 @@ module.exports.readTodo = (req, res) => {
 }
 
 module.exports.createTodo = async (req, res) => {
+  
+
+  if (req.body.list === '') {
+    try {
+        throw Error("empty list");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.status(400).json({ errors });
+    }
+  }
+  
   const newTodo = new TodoModels({
     userId: req.body.userId,
     list: req.body.list,
@@ -21,6 +33,8 @@ module.exports.createTodo = async (req, res) => {
   } catch (err) {
     return res.status(400).send(err);
   }
+
+  
 };
 
 module.exports.updateTodo = (req, res) => {

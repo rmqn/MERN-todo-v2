@@ -14,8 +14,9 @@ const todoSchema = new mongoose.Schema (
     },
     todos: [
       {
-        item: { type : String },
+        item: { type : String, trim: true },
         done: { type : Boolean },
+        
       }
     ],
   },

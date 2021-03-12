@@ -33,3 +33,11 @@ module.exports.signInErrors = (err) => {
   return errors;
 }
 
+module.exports.uploadErrors = (err) => {
+  let errors = { empty: ''};
+
+  if (err.message.includes('empty list'))
+    errors.empty = "Le champs ne doit pas être vide";
+
+  return errors
+}

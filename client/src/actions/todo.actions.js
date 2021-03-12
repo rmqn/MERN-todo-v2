@@ -7,7 +7,7 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
 
 // errors
-export const GET_POST_ERRORS = "GET_POST_ERRORS";
+export const GET_TODO_ERRORS = "GET_TODO_ERRORS";
 
 /**
  * 
@@ -32,7 +32,7 @@ export const addTodo = (data) => {
           .post(`${process.env.REACT_APP_API_URL}api/todos/`, data)
           .then((res) => {
               if (res.data.errors) {
-                  dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+                  dispatch({ type: GET_TODO_ERRORS, payload: res.data.errors });
               } else {
                   dispatch({ type: ADD_TODO, payload: res.data });
               }
