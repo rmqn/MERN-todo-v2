@@ -112,7 +112,7 @@ function SignUpForm() {
             />
             <div className="password-confirm error"></div>
             <br />
-            <Checkbox type="checkbox" id="terms" />
+            <Checkbox type="checkbox" id="terms" color="primary"/>
             <label htmlFor="terms">J'accepte les <a href="/" target="_blank" rel="noopener noreferrer">conditions générales</a></label>
             <div className="terms error"></div>
             <br />

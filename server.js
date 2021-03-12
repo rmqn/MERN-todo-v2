@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config({path: './config/.env'});
 require('./config/db');
+const path = require("path");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -20,6 +21,9 @@ const corsOptions = {
   'preflightContinue': false
 }
 app.use(cors(corsOptions));
+// app.use(cors());
+
+app.use(express.json());
 
 // parser
 app.use(bodyParser.json());
@@ -36,7 +40,15 @@ app.get('/jwtid', requireAuth, (req, res) => {
 app.use('/api/todos', todoRoutes);
 app.use('/api/user', userRoutes);
 
-// server
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}`);
-})
+
+
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get('/*', (_, res) => res.sendFile(path.resolve(__dirname, './client/build/index.html')))
+}
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});

@@ -36,7 +36,7 @@ function SignInForm() {
   }
 
   return (
-    <Box p={2}>
+    <Box p={2} >
     <form action="" onSubmit={handleLogin} id="sign-up-form" >
       <label htmlFor="email">Email</label>
       <br />

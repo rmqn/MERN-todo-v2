@@ -11,14 +11,13 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import { isEmpty } from '../Utils';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';import { capitalizeFirstLetter, isEmpty } from '../Utils';
 
 
 const useStyles = makeStyles(() => ({
   spacing: 4,
   cardCustom2: {
     background: "linear-gradient(101.18deg, rgba(255, 255, 255, 0.36) 19.31%, rgba(255, 255, 255, 0.27) 90.35%)",
-    // backdropFilter: "blur(50px)",
     borderRadius: "15px",
     position: "relative",
     padding: ".5em",
@@ -28,7 +27,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     top: '50px',
     left: '30px'
-  }
+  },
 }));
 
 export default function FormTask() {
@@ -73,7 +72,6 @@ export default function FormTask() {
       }
       return i;
     })
-
     setInputFields(newInputFields);
   }
 
@@ -81,11 +79,18 @@ export default function FormTask() {
     setInputFields([...inputFields, { id: uuidv4(), item: '', done: false }])
   }
 
+  const handleRemoveFields = (id) => {
+    const updatedField = [...inputFields];
+    const newInputFields = updatedField.findIndex(index => index.id === id);
+    updatedField.splice(newInputFields, 1);
+    setInputFields(updatedField);
+  }
+
+
   const resetInputField = () => {
     setFormIsOpen(!formIsOpen)
     setList('')
     setInputFields([initialStateTodos])
-
   }
 
 
@@ -114,32 +119,42 @@ export default function FormTask() {
               <form onSubmit={onSubmitTodo} noValidate autoComplete="off">
                 <Container width={1}>
                   <Box display="flex" flexDirection="column" m={2} >
-                    <Typography variant="h6" >Donner un nom à votre liste</Typography>
+                    <Typography variant="h6" >Donner un nom à votre liste :</Typography>
                     <Box mb={5} width={1}>
                       <TextField fullWidth id="component-simple" name="list" value={list} onChange={(e) => setList(e.target.value)} />
                     </Box>
-
-                    <Typography>Ajouter des éléments à votre liste</Typography>
+                    <Box mb={2}>
+                      <Typography variant="subtitle2">Ajouter des éléments à votre liste :</Typography>
+                    </Box>
                     {/* elem add */}
                     {inputFields.map((inputField) => {
                       return (
-                        <Box key={inputField.id} display="flex" alignItems="flex-end" pb={2} >
-                          <TextField
-                            name="item"
-                            fullWidth
-                            value={inputField.item}
-                            onChange={event => handleChangeInput(inputField.id, event)}
-                          />
-                        </Box>
+                        <>
+                          <Box key={inputField.id} display="flex" alignItems="flex-end" pb={2} >
+                            <TextField
+                              name="item"
+                              fullWidth
+                              value={inputField.item}
+                              onChange={event => handleChangeInput(inputField.id, event)}
+                            />
+                            <Box position="absolute" right="0px" >
+                              <Tooltip title="Ajouter un élément">
+                                <IconButton onClick={handleAddFields} > 
+                                  <AddCircleIcon/> 
+                                </IconButton>
+                              </Tooltip>
+                            </Box>
+                            <Box position="absolute" right="30px" >
+                              <Tooltip title="Ajouter un élément">
+                                <IconButton onClick={(event) => handleRemoveFields(inputField.id, event)} > 
+                                  <RemoveCircleIcon/> 
+                                </IconButton>
+                              </Tooltip>
+                            </Box>
+                          </Box>
+                        </>
                       )
                     })}
-                    <Box position="absolute" right="25px" top="120px">
-                      <Tooltip title="Ajouter un élément">
-                        <IconButton onClick={handleAddFields} >
-                          <AddCircleIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
                     <Box display="flex" justifyContent="flex-end" mt={5}>
                       <Button
                         type="submit"
@@ -147,7 +162,7 @@ export default function FormTask() {
                         color="primary"
                         className={classes.submit}
                       >Ajouter
-                  </Button>
+                      </Button>
                     </Box>
                   </Box>
                 </Container>
@@ -155,7 +170,6 @@ export default function FormTask() {
             </Card>
           </Container>
         </Box>
-
       ) : (
         null
       )}
