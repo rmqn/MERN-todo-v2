@@ -26,6 +26,12 @@ function SignInForm() {
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email;
           passwordError.innerHTML = res.data.errors.password;
+          emailError.style.animation = "dongle 1s";
+          passwordError.style.animation = "dongle 1s";
+          setTimeout(() => {
+            emailError.style.animation = "none";
+            passwordError.style.animation = "none";
+          }, 1000);
         } else {
           window.location = '/';
         }

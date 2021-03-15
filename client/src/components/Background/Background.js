@@ -5,15 +5,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   image: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundImage: `url(${bg})`,
+    backgroundImage: 'url(https://source.unsplash.com/user/pawel_czerwinski)',
+    // backgroundImage: `url(${bg})`,
     backgroundRepeat: 'no-repeat',
-
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backdropFilter: "blur(50px)",
+    backdropFilter: "blur(1em)",
+    filter: "blur(10px)",
     position: 'fixed',
     width: '100%',
     height: '100vh',

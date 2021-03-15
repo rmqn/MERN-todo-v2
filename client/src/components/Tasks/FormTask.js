@@ -3,6 +3,7 @@ import { UidContext } from '../AppContext';
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, getTodo } from '../../actions/todo.actions';
 import { v4 as uuidv4 } from 'uuid';
+import { capitalizeFirstLetter, isEmpty } from '../Utils';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -11,8 +12,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';import { capitalizeFirstLetter, isEmpty } from '../Utils';
-
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 const useStyles = makeStyles(() => ({
   spacing: 4,
@@ -35,9 +35,10 @@ export default function FormTask() {
 
   const initialStateTodos = { id: uuidv4(), item: '', done: false };
   const [inputFields, setInputFields] = useState([initialStateTodos]);
-  const [list, setList] = useState('')
-  const [formIsOpen, setFormIsOpen] = useState(false)
+  const [list, setList] = useState('');
+  const [formIsOpen, setFormIsOpen] = useState(false);
 
+  
 
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
@@ -52,13 +53,20 @@ export default function FormTask() {
         list: list,
         todos: inputFields
       }
+
       await dispatch(addTodo(data))
       await dispatch(getTodo())
       setInputFields([initialStateTodos])
       setList('')
       setFormIsOpen(false)
+
     } else {
-      console.log('error champs non remplis');
+      if(isEmpty(list)) {
+        console.log('list vide');
+      }
+      if(inputFields[0].item === "") {
+        console.log('element vide');
+      }
 
     }
   }
@@ -127,10 +135,10 @@ export default function FormTask() {
                       <Typography variant="subtitle2">Ajouter des éléments à votre liste :</Typography>
                     </Box>
                     {/* elem add */}
-                    {inputFields.map((inputField) => {
+                    {inputFields.map((inputField, index) => {
                       return (
                         <>
-                          <Box key={inputField.id} display="flex" alignItems="flex-end" pb={2} >
+                          <Box key={index} display="flex" alignItems="flex-end" pb={2} >
                             <TextField
                               name="item"
                               fullWidth
@@ -145,7 +153,7 @@ export default function FormTask() {
                               </Tooltip>
                             </Box>
                             <Box position="absolute" right="30px" >
-                              <Tooltip title="Ajouter un élément">
+                              <Tooltip title="Supprimer cet élément">
                                 <IconButton onClick={(event) => handleRemoveFields(inputField.id, event)} > 
                                   <RemoveCircleIcon/> 
                                 </IconButton>
@@ -163,6 +171,7 @@ export default function FormTask() {
                         className={classes.submit}
                       >Ajouter
                       </Button>
+                      
                     </Box>
                   </Box>
                 </Container>

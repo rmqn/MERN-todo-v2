@@ -20,7 +20,6 @@ export const GET_TODO_ERRORS = "GET_TODO_ERRORS";
           .then((res) => {
               const array = res.data
               dispatch({ type: GET_TODO, payload: array })
-             
           })
           .catch((err) => console.log(err))
   }
@@ -31,12 +30,16 @@ export const addTodo = (data) => {
       return axios
           .post(`${process.env.REACT_APP_API_URL}api/todos/`, data)
           .then((res) => {
-              if (res.data.errors) {
-                  dispatch({ type: GET_TODO_ERRORS, payload: res.data.errors });
+              if (res.data.list === '') {
+                console.log('fdp');
+               
+                  // dispatch({ type: GET_TODO_ERRORS, payload: res.data.errors });
               } else {
+                console.log(res.data.list);
                   dispatch({ type: ADD_TODO, payload: res.data });
               }
-          });
+          })
+          .catch((err) => console.log(err))
   };
 };
 
