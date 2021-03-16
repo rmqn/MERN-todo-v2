@@ -1,5 +1,5 @@
 #closeBtn {
-  animation: rotate .2s ease-in-out;
+  animation: rotate .5s ease-in-out;
 }
 
 @keyframes rotate {
@@ -12,15 +12,32 @@
 }
 
 .card-appear {
-  animation: scaleDown .5s ease-out;
+  animation: scaleDown .7s ease-out;
+}
+.pop-appear {
+  bottom: 0;
+  // animation: scaleUp 1s ease-out;
 }
 
 @keyframes scaleDown {
   0% {
     opacity: 0;
+    transform: translateY(-10px);
   }
   100% {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

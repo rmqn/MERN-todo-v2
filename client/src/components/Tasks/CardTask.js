@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react'
 import ElementTask from './ElementTask'
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, getTodo } from '../../actions/todo.actions';
 import { capitalizeFirstLetter, dateParser } from '../Utils';
+import { deleteTodo, getTodo } from '../../actions/todo.actions';
+import Modale from '../Modale/Modale';
 // MUI
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Card, Typography, Container } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+
 
 
 const useStyles = makeStyles(() => ({
@@ -32,36 +34,45 @@ const useStyles = makeStyles(() => ({
 function CardTask({ todo }) {
   const classes = useStyles()
 
+  const [openModal, setOpenModal] = useState(false)
+
   const dispatch = useDispatch();
 
-  const deleteQuote = () => {
+  const deleteQuote = () => {   
     dispatch(deleteTodo(todo._id));
     dispatch(getTodo())
+    setOpenModal(false)
+  }
+
+  const stopPropa = (e) => {
+    e.stopPropagation();
   }
   
   return (
 
     <>
-
-      <Box >
-        <Container className="card-appear">
+      <Box className="card-appear">
+        <Container>
           <Card className={classes.cardCustom}>
             <Box  p={2}>
               <Typography align="center" variant="h5">{capitalizeFirstLetter(todo.list)}</Typography>
             </Box>
             <Tooltip title="Supprimer">
               <IconButton 
-              className={classes.cancelIconCustom} 
-              aria-label="Supprimer" 
-              onClick={() => {
-                if (window.confirm("Voulez-vous supprimer cette liste ?")) {
-                  deleteQuote();
-                }
-              }}
+                className={classes.cancelIconCustom} 
+                aria-label="Supprimer" 
+                onClick={() => {setOpenModal(!openModal)}}
               >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
+            {openModal && 
+            <Modale 
+              message="Etes vous sûr de vouloir supprimer ?"
+              setOpenModal={setOpenModal}
+              deleteQuote={deleteQuote}
+              stopPropa={stopPropa}
+            />}
             <Container>
               <Box>
                 {todo.todos.map((elem) => <ElementTask elem={elem} todo={todo._id} key={elem._id} />)}
@@ -69,17 +80,13 @@ function CardTask({ todo }) {
             </Container>
           </Card>
         </Container>
-      </Box>
       <Box mt={-2} mb={2}>
         <Container>
           <Typography style={{color: "#FFFFFF"}}>Créer le {dateParser(todo.createdAt)}</Typography>
         </Container>
       </Box>
-
-
+      </Box>
     </>
-
-
   )
 }
 
