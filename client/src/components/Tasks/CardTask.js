@@ -82,7 +82,7 @@ function CardTask({ todo }) {
         </Container>
       <Box mt={-2} mb={2}>
         <Container>
-          <Typography style={{color: "#FFFFFF"}}>Créer le {dateParser(todo.createdAt)}</Typography>
+          <Typography style={{color: "#FFFFFF"}}>Créée le {dateParser(todo.createdAt)}</Typography>
         </Container>
       </Box>
       </Box>

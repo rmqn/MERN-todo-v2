@@ -38,7 +38,7 @@ function Modale({ message, setOpenModal, stopPropa, deleteQuote }) {
 
   return (
     <Box>
-      <Container className={classes.overlay} onClick={() => setOpenModal(false)}>
+      <Box className={classes.overlay} onClick={() => setOpenModal(false)}>
         <Card className={classes.cardCustom} onClick={stopPropa}>
           <Typography style={{ marginBottom: '1em' }}>{message}</Typography>
           <Box>
@@ -54,7 +54,7 @@ function Modale({ message, setOpenModal, stopPropa, deleteQuote }) {
             >Oui</Button>
           </Box>
         </Card>
-      </Container>
+      </Box>
     </Box>
   )
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 export const GET_TODO = "GET_TODO";
 export const ADD_TODO = "ADD_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
+export const UPDATE_TODO_STATUS = "UPDATE_TODO_STATUS";
 export const DELETE_TODO = "DELETE_TODO";
 
 // errors
@@ -30,10 +31,8 @@ export const addTodo = (data) => {
       return axios
           .post(`${process.env.REACT_APP_API_URL}api/todos/`, data)
           .then((res) => {
-              if (res.data.list === '') {
-                console.log('fdp');
-               
-                  // dispatch({ type: GET_TODO_ERRORS, payload: res.data.errors });
+              if (res.data.list === '') {               
+                  dispatch({ type: GET_TODO_ERRORS, payload: res.data.errors });
               } else {
                 console.log(res.data.list);
                   dispatch({ type: ADD_TODO, payload: res.data });
@@ -44,7 +43,21 @@ export const addTodo = (data) => {
 };
 
 
-export const updateTodo = (postId, todoId, done) => {
+export const updateTodo = (postId, todoId, item) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/todos/edit-todo-item/${postId}`,
+      data: { todoId, item },
+    })
+      .then((res) => {
+        dispatch({ type: UPDATE_TODO, payload: { postId, todoId, item } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const updateTodoStatus = (postId, todoId, done) => {
   return (dispatch) => {
     return axios({
       method: "patch",
@@ -52,7 +65,7 @@ export const updateTodo = (postId, todoId, done) => {
       data: { todoId, done },
     })
       .then((res) => {
-        dispatch({ type: UPDATE_TODO, payload: { postId, todoId, done } });
+        dispatch({ type: UPDATE_TODO_STATUS, payload: { postId, todoId, done } });
       })
       .catch((err) => console.log(err));
   };

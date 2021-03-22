@@ -61,7 +61,7 @@ function Task() {
         <Box>
           <Container>
             <Card className={classes.cardCustom}>
-              <Typography align="center" variant="h5" p="2">Aucune Tâche encore créer</Typography>
+              <Typography align="center" variant="h5" p="2">Aucune Tâche encore créée</Typography>
             </Card>
           </Container>
         </Box>

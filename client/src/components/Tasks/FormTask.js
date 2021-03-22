@@ -212,7 +212,7 @@ export default function FormTask() {
       {openPopUp ? (
         <PopUp 
           setOpenPopUp={setOpenPopUp} 
-          message="Liste crée avec succès !"
+          message="Liste créée avec succès !"
         />
       ) : (null)}
     </>

@@ -98,6 +98,7 @@ module.exports.todoPost = (req, res) => {
 module.exports.editTodoBool = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
+    console.log(req.body);
 
   try {
     return TodoModels.findById(
@@ -109,6 +110,31 @@ module.exports.editTodoBool = (req, res) => {
 
         if (!theTodo) return res.status(404).send("Todo not found");
         theTodo.done = req.body.done;
+
+        return docs.save((err) => {
+          if (!err) return res.status(200).send(docs);
+          return res.status(500).send(err);
+        });
+      });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+module.exports.editTodoItem = (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID unknown : " + req.params.id);
+
+  try {
+    return TodoModels.findById(
+      req.params.id,
+      (err, docs) => {
+        const theTodo = docs.todos.find((todo) =>
+          todo._id.equals(req.body.todoId)
+        );
+
+        if (!theTodo) return res.status(404).send("Todo not found");
+        theTodo.item = req.body.item;
 
         return docs.save((err) => {
           if (!err) return res.status(200).send(docs);

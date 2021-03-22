@@ -9,6 +9,7 @@ router.delete('/:id', todoController.deleteTodo);
 
 router.patch('/todo-post/:id', todoController.todoPost);
 router.patch('/edit-todo-post/:id', todoController.editTodoBool);
+router.patch('/edit-todo-item/:id', todoController.editTodoItem);
 
 
 
