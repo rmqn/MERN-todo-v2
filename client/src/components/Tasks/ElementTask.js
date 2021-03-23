@@ -9,7 +9,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
   taskDone: {
     textDecoration: "line-through",
-    color: "#484848"
+    color: "#484848",
+    '&:first-letter': {
+      textTransform: 'uppercase'
+    }
+  },
+  task: {
+    '&:first-letter': {
+      textTransform: 'uppercase'
+    }
   },
 }));
 
@@ -17,12 +25,12 @@ export default function ElementTask({ elem, todo }) {
   const classes = useStyles()
 
   const [checked, setChecked] = useState(elem.done);
-  const [item, setItem] = useState(elem.item);
   const [editTodo, setEditTodo] = useState(false)
-  const [textUpdate, setTextUpdate] = useState(null);
+  const [textUpdate, setTextUpdate] = useState(elem.item);
 
 
   const dispatch = useDispatch();
+
 
 
   const updateStatus = () => {
@@ -35,7 +43,6 @@ export default function ElementTask({ elem, todo }) {
     e.preventDefault()
     dispatch(updateTodo(todo, elem._id, textUpdate))
     setEditTodo(false)
-    setItem(textUpdate)
   }
 
 
@@ -51,13 +58,13 @@ export default function ElementTask({ elem, todo }) {
         <form action="" onSubmit={handleSubmit}>
           <input 
           type="text"
-          defaultValue={item}
+          defaultValue={textUpdate}
           onChange={(e) => setTextUpdate(e.target.value)}
            />
         </form>
       ) : (
-        <Typography variant="h6" className={checked ? classes.taskDone : null} onClick={() => setEditTodo(!editTodo)}>
-          {capitalizeFirstLetter(item)}
+        <Typography variant="h6" className={checked ? classes.taskDone : classes.task} onClick={() => setEditTodo(!editTodo)}>
+          {textUpdate}
         </Typography>
       )}
     </Box>
